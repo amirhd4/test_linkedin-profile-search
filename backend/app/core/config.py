@@ -5,7 +5,7 @@ class Settings(BaseSettings):
     API_V1_STR: str = "/api/v1"
     
     # MongoDB Config
-    MONGODB_URL: str = "mongodb://localhost:27017"
+    MONGODB_URL: str = "mongodb://mongodb:27017/lp_db?directConnection=true"
     MONGODB_DB_NAME: str = "lp_db"
     
     # Elasticsearch Config
