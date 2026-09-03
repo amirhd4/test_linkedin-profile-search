@@ -19,17 +19,17 @@ export const ProfileCard: React.FC<Props> = ({ profile, onSelect }) => {
     <div className="bg-slate-800/60 border border-slate-700/60 rounded-2xl p-6 hover:border-indigo-500/50 hover:bg-slate-800/90 transition-all duration-200 group shadow-lg flex flex-col justify-between">
       <div>
         <div className="flex items-start justify-between gap-4 mb-3">
-          <div>
-            <h3 className="text-xl font-bold text-slate-100 group-hover:text-indigo-300 transition-colors capitalize">
+          <div className="flex-1 min-w-0">
+            <h3 className="text-xl font-bold text-slate-100 group-hover:text-indigo-300 transition-colors capitalize truncate">
               {renderHighlighted('full_name', profile.full_name)}
             </h3>
             <div className="flex items-center gap-2 text-indigo-400 font-medium text-sm mt-1">
-              <Briefcase className="w-4 h-4 text-indigo-400" />
-              <span>{renderHighlighted('job_title', profile.job_title || 'N/A')}</span>
+              <Briefcase className="w-4 h-4 text-indigo-400 shrink-0" />
+              <span className="truncate">{renderHighlighted('job_title', profile.job_title || 'N/A')}</span>
             </div>
           </div>
           {profile.score && (
-            <div className="flex items-center gap-1 bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs px-2.5 py-1 rounded-full font-mono">
+            <div className="flex items-center gap-1 bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs px-2.5 py-1 rounded-full font-mono shrink-0">
               <Star className="w-3 h-3 fill-amber-400" />
               <span>{profile.score.toFixed(1)}</span>
             </div>
@@ -52,9 +52,11 @@ export const ProfileCard: React.FC<Props> = ({ profile, onSelect }) => {
         </div>
 
         {profile.summary && (
-          <p className="text-slate-300 text-sm line-clamp-2 mb-4 italic bg-slate-900/40 p-3 rounded-xl border border-slate-800">
-            "{renderHighlighted('summary', profile.summary)}"
-          </p>
+          <div className="mb-4 bg-slate-900/40 p-3 rounded-xl border border-slate-800">
+            <p className="text-slate-300 text-sm line-clamp-3 italic break-words leading-relaxed">
+              "{renderHighlighted('summary', profile.summary)}"
+            </p>
+          </div>
         )}
 
         {profile.skills && profile.skills.length > 0 && (
@@ -62,13 +64,14 @@ export const ProfileCard: React.FC<Props> = ({ profile, onSelect }) => {
             {profile.skills.slice(0, 8).map((skill, idx) => (
               <span
                 key={idx}
-                className="bg-slate-700/60 text-slate-300 border border-slate-600/50 text-xs px-2.5 py-0.5 rounded-lg font-medium"
+                title={skill}
+                className="bg-slate-700/60 text-slate-300 border border-slate-600/50 text-xs px-2.5 py-1 rounded-lg font-medium truncate max-w-[140px]"
               >
                 {skill}
               </span>
             ))}
             {profile.skills.length > 8 && (
-              <span className="text-xs text-slate-500 self-center pl-1 font-mono">
+              <span className="text-xs text-slate-500 self-center pl-1 font-mono shrink-0">
                 +{profile.skills.length - 8} more
               </span>
             )}
